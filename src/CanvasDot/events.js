@@ -21,7 +21,6 @@ function registerEvents(config, formRef, error) {
   }
 
   function focusHandler({ target }) {
-    // if (error && target.type === "submit") return;
     if (target === config.current.currentFocus) return;
     if (isElementInvalid(target) && error) {
       switchToRedDot(config.current.canvasCtx);

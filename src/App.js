@@ -11,10 +11,10 @@ export default function App() {
         <input name="name" type="text" id="name" required />
 
         <label htmlFor="email">Email</label>
-        <input name="email" type="text" id="email" required />
+        <input name="email" type="text" id="email" />
 
         <label htmlFor="password">Password</label>
-        <input name="password" type="password" id="password" />
+        <input name="password" type="password" id="password" required />
 
         <input type="submit" value="Submit" />
       </Form>

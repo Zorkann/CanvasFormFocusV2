@@ -57,7 +57,6 @@ const useCanvasDot = () => {
           onSubmit={(event) => {
             handleSubmit(event, props.onSubmit);
           }}
-          className={props.className}
           noValidate
           {...props}
         >
@@ -67,7 +66,7 @@ const useCanvasDot = () => {
     );
   }, []);
 
-  return { Form, handleSubmit, error };
+  return { Form, error };
 };
 
 export default useCanvasDot;
