@@ -12,16 +12,16 @@ function isElementInvalid(ele) {
   return ele.name && !ele.checkValidity();
 }
 
-function handleValidationError(event, canvasCtx) {
-  const firstInvalidEle = Array.from(event.target).find(isElementInvalid);
+function handleValidationError({ target }, canvasCtx) {
+  const firstInvalidEle = Array.from(target).find(isElementInvalid);
   if (firstInvalidEle) {
     firstInvalidEle.focus();
     switchToRedDot(canvasCtx);
   }
 }
 
-function handleOnChange(event, canvasCtx) {
-  if (isElementInvalid(event.target)) {
+function handleOnChange({ target }, canvasCtx) {
+  if (isElementInvalid(target)) {
     switchToRedDot(canvasCtx);
   } else {
     switchToGreenDot(canvasCtx);

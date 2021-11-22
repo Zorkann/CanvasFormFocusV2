@@ -5,9 +5,10 @@ import { addOnChangeEventsToForm, handleValidationError } from "./utils";
 import { registerEvents } from "./events";
 import "../styles.css";
 
-const useCanvasDot = (formRef) => {
+const useCanvasDot = () => {
   const [error, setError] = useState(false);
   const canvasRef = useRef();
+  const formRef = useRef();
   const config = useRef({
     canvasCtx: undefined,
     head: {},
@@ -34,8 +35,10 @@ const useCanvasDot = (formRef) => {
     };
   }, [error, formRef]);
 
-  function handleSubmit(event) {
+  function handleSubmit(event, onSubmit) {
     event.preventDefault();
+
+    onSubmit?.();
 
     if (event.target.checkValidity()) {
       setError(false);
@@ -45,16 +48,26 @@ const useCanvasDot = (formRef) => {
     }
   }
 
-  const Wrapper = useCallback(({ children }) => {
+  const Form = useCallback((props) => {
     return (
       <div className="form-wrapper">
         <canvas ref={canvasRef} />
-        {children}
+        <form
+          ref={formRef}
+          onSubmit={(event) => {
+            handleSubmit(event, props.onSubmit);
+          }}
+          className={props.className}
+          noValidate
+          {...props}
+        >
+          {props.children}
+        </form>
       </div>
     );
   }, []);
 
-  return [Wrapper, handleSubmit, error];
+  return { Form, handleSubmit, error };
 };
 
 export default useCanvasDot;
