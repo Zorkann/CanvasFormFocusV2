@@ -9,6 +9,7 @@ const useCanvasDot = () => {
   const [error, setError] = useState(false);
   const canvasRef = useRef();
   const formRef = useRef();
+  const animationFrameId = useRef();
   const config = useRef({
     canvasCtx: undefined,
     head: {},
@@ -18,14 +19,19 @@ const useCanvasDot = () => {
 
   const redraw = useCallback(() => {
     paint(config.current);
-    requestAnimationFrame(redraw);
+    animationFrameId.current = requestAnimationFrame(redraw);
   }, []);
 
   useEffect(() => {
+    config.current.currentFocus = null;
     config.current.canvasCtx = canvasRef.current.getContext("2d");
     resize(config.current);
     redraw();
     addOnChangeEventsToForm(formRef.current, config.current.canvasCtx);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId.current);
+    };
   }, [formRef, redraw]);
 
   useEffect(() => {

@@ -37,12 +37,14 @@ function registerEvents(config, formRef, error) {
     }
   }
 
+  document.addEventListener("mousedown", outsideFocusHandler, true);
   document.addEventListener("focus", outsideFocusHandler, true);
   form.addEventListener("focus", focusHandler, true);
   window.addEventListener("resize", resizeHandler, true);
   window.addEventListener("scroll", scrollHandler, true);
 
   function removeEvents() {
+    document.removeEventListener("mousedown", outsideFocusHandler, true);
     document.removeEventListener("focus", outsideFocusHandler, true);
     form.removeEventListener("focus", focusHandler, true);
     window.removeEventListener("resize", resizeHandler, true);
