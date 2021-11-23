@@ -5,17 +5,19 @@ import { addOnChangeEventsToForm, handleValidationError } from "./utils";
 import { registerEvents } from "./events";
 import "../styles.css";
 
+const initial = {
+  canvasCtx: undefined,
+  head: {},
+  tail: [],
+  currentFocus: undefined
+};
+
 const useCanvasDot = () => {
   const [error, setError] = useState(false);
   const canvasRef = useRef();
   const formRef = useRef();
   const animationFrameId = useRef();
-  const config = useRef({
-    canvasCtx: undefined,
-    head: {},
-    tail: [],
-    currentFocus: undefined
-  });
+  const config = useRef(initial);
 
   const redraw = useCallback(() => {
     paint(config.current);
@@ -23,7 +25,8 @@ const useCanvasDot = () => {
   }, []);
 
   useEffect(() => {
-    config.current.currentFocus = null;
+    setError(false);
+    config.current = initial;
     config.current.canvasCtx = canvasRef.current.getContext("2d");
     resize(config.current);
     redraw();

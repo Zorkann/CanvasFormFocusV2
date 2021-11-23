@@ -33,7 +33,12 @@ function registerEvents(config, formRef, error) {
 
   function outsideFocusHandler({ target }) {
     if (!form.contains(target)) {
-      config.current.currentFocus = null;
+      config.current = {
+        ...config.current,
+        head: {},
+        tail: [],
+        currentFocus: undefined
+      };
     }
   }
 
